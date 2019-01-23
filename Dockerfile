@@ -6,8 +6,14 @@ RUN set -x \
   && rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi \
   && rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
   && yum install -y --enablerepo=remi-php73 php php-cli php-bcmath php-gd php-gmp \
-       php-json php-mbstring php-mysqlnd php-pdo php-pecl-mysql php-xml php-intl \
+       php-json php-mbstring php-mysqlnd php-pdo php-pecl-mysql php-xml php-intl php-xdebug php-zip \
        mod_ssl
+
+RUN set -x \
+  && yum install -y git \
+  && curl -s -o /usr/local/bin/composer https://getcomposer.org/download/1.8.0/composer.phar \
+  && chmod 755 /usr/local/bin/composer \
+  && /usr/local/bin/composer global require hirak/prestissimo
 
 RUN yum clean all
 
